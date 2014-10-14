@@ -1,10 +1,9 @@
-package com.datasynaptic.notemanage;
+package com.datasynaptic.icloudnotes;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,14 +12,11 @@ import javax.mail.Store;
 
 import org.apache.commons.io.FileUtils;
 
-import com.datasynaptic.notemanage.utils.Strings;
-import com.datasynaptic.notemanage.utils.minifunctions;
+import com.datasynaptic.icloudnotes.utils.minifunctions;
 
-public class NoteBrowser {
+public class NotesSaver {
 
 	// http://support.apple.com/kb/HT4864
-	static final String mymailusername = "edoardoc";
-	static final String mymailpassword = "ybb32000";
 	static final String NOTEFOLDERLBL = "Notes";
 
 	public static void main(String args[]) throws Exception {
@@ -32,12 +28,12 @@ public class NoteBrowser {
 		// Get the store
 		Store store = session.getStore("imaps");
 		//store.connect("imap.gmail.com", mymailusername, mymailpassword);
-		store.connect("imap.mail.me.com", mymailusername, mymailpassword);
+		store.connect("imap.mail.me.com", args[0], args[1]);	// username without @icloud.com
 
 		String backup_directory = NOTEFOLDERLBL + "_" + System.currentTimeMillis() + "/";
 
 		// saves main folder
-		scorre(store, backup_directory, NOTEFOLDERLBL);
+		save(store, backup_directory, NOTEFOLDERLBL);
 		
 		// folder..s	
 		Folder mainnotefolder = store.getFolder(NOTEFOLDERLBL);
@@ -45,7 +41,7 @@ public class NoteBrowser {
 		Folder[] f = mainnotefolder.list();
 		for(Folder fd:f) {
 		    String backup_directory_i = backup_directory + fd.getName();
-			scorre(store, backup_directory_i, NOTEFOLDERLBL + "/" + fd.getName());
+			save(store, backup_directory_i, NOTEFOLDERLBL + "/" + fd.getName());
 		}
 
 		// Close connection
@@ -53,7 +49,7 @@ public class NoteBrowser {
 		System.exit(0);
 	}
 
-	private static void scorre(Store store, String wheretobackup, String f) throws MessagingException, IOException {
+	private static void save(Store store, String wheretobackup, String f) throws MessagingException, IOException {
 		
 	    System.out.println("opening folder " + f);
 	    Folder folder = store.getFolder(f);
@@ -72,7 +68,7 @@ public class NoteBrowser {
 			System.out.println("saving: " + subj);
 
 			// BACKUP NOTE
-			minifunctions.writeFile(wheretobackup + "/" + Strings.removeStrange(subj).trim() + ".html", nota, message[i].getSentDate());
+			minifunctions.writeFile(wheretobackup + "/" + minifunctions.makeFilename(subj).trim() + ".html", nota, message[i].getSentDate());
 
 		}
 		folder.close(false);

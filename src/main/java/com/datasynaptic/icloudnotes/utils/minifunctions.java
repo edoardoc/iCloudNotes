@@ -1,4 +1,4 @@
-package com.datasynaptic.notemanage.utils;
+package com.datasynaptic.icloudnotes.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,6 +8,40 @@ import java.util.Calendar;
 import java.util.Date;
 
 public abstract class minifunctions {
+    
+	public static String makeFilename(String str) {
+        StringBuffer buf = new StringBuffer();
+        char cs[] = str.toCharArray();
+        char c = ' ';
+        for (int i = 0; i < cs.length; i++) {
+            c =cs[i];
+            if (!(((c == '_')
+                    || (c == '+')
+                    || (c == '\'')
+                    || (c == '*')
+                    || (c == '-')
+                    || (c == '^')
+                    || (c == ')')
+                    || (c == '(')
+                    || (c == '&')
+                    || (c == '$')
+                    || (c == '£')
+                    || (c == '.')
+                    || (c == '_')
+                    || (c == '@')
+                    || (c == '!')
+                    || (c == ' ') // spazio
+                    )
+                    || ((c >= 'A') && (c <= 'Z'))
+                    || ((c >= 'a') && (c <= 'z'))
+                    || ((c >= '0') && (c <= '9')))) {
+                c = ' ';
+            }   
+            buf.append(c);
+        }
+        return new String(buf);
+    }
+	
 	static public boolean booleanParm(String parametro) {
 		return (parametro == null) ? false : true;
 	}
