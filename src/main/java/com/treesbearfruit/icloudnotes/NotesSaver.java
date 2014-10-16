@@ -1,5 +1,5 @@
 /**
- *    Copyright 2014 Edoardo Ceccarelli
+ *    Copyright (C) 2014 Edoardo Ceccarelli
  *    
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  */
 
 
-package com.datasynaptic.icloudnotes;
+package com.treesbearfruit.icloudnotes;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ import javax.mail.Store;
 
 import org.apache.commons.io.FileUtils;
 
-import com.datasynaptic.icloudnotes.utils.minifunctions;
+import com.treesbearfruit.icloudnotes.utils.minifunctions;
 
 public class NotesSaver {
 
