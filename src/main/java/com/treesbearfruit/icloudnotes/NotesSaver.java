@@ -20,6 +20,7 @@ package com.treesbearfruit.icloudnotes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Folder;
@@ -36,7 +37,7 @@ public class NotesSaver {
 
 	// http://support.apple.com/kb/HT4864
 
-	public NotesSaver(String username, String password, String j, String notesfolder) throws Exception {
+	public NotesSaver(String username, String password, String j, String wheretosave) throws Exception {
 		
 		// Get system properties
 		Properties props = System.getProperties();
@@ -56,8 +57,9 @@ public class NotesSaver {
 		} else {
 			throw new Exception("Notesprovider not implemented!");
 		}
-
-		String backup_directory = noteFolderLabel + "_" + System.currentTimeMillis() + "/";
+		
+		String timestamp = new java.text.SimpleDateFormat("dd_MM_yyyy_hh_mm_ss").format(new Date());
+		String backup_directory = wheretosave + (wheretosave.endsWith(File.separator) ? "" : File.separator) + noteFolderLabel + "_" + timestamp + File.separator;
 
 		// saves main folder
 		save(store, backup_directory, noteFolderLabel);

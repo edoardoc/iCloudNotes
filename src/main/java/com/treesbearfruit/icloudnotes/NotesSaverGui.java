@@ -43,6 +43,7 @@ public class NotesSaverGui extends JFrame {
             	try {
             		NotesSaver ns = new NotesSaver(args[0], args[1], args[2], args[3]);
             	} catch (Exception e) {
+            		e.printStackTrace();
             		// something didn't work out, let's show the GUI
                 	try {
 						NotesSaverGui ex = new NotesSaverGui();
@@ -52,6 +53,8 @@ public class NotesSaverGui extends JFrame {
 
 						System.out.println(" ****** " + generals.APPNAME + " ****** ");
 						System.out.println(generals.APPNAME + " username password apple_or_google where_to_save_the_backup");
+						
+						
 					}
             	}
             }
