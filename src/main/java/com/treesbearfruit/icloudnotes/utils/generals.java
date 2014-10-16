@@ -25,8 +25,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public abstract class minifunctions {
-    
+public abstract class generals {
+	
+	public static final String APPNAME = "iCloudNotes";
+
 	public static String makeFilename(String str) {
         StringBuffer buf = new StringBuffer();
         char cs[] = str.toCharArray();
@@ -59,10 +61,6 @@ public abstract class minifunctions {
         return new String(buf);
     }
 	
-	static public boolean booleanParm(String parametro) {
-		return (parametro == null) ? false : true;
-	}
-
 	static public String readFile(String nome) {
 		String ret = "";
 		try {

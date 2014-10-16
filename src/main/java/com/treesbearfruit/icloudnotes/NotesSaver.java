@@ -30,14 +30,14 @@ import javax.mail.Store;
 
 import org.apache.commons.io.FileUtils;
 
-import com.treesbearfruit.icloudnotes.utils.minifunctions;
+import com.treesbearfruit.icloudnotes.utils.generals;
 
 public class NotesSaver {
 
 	// http://support.apple.com/kb/HT4864
-	static final String NOTEFOLDERLBL = "Notes";
 
-	public static void main(String args[]) throws Exception {
+	public NotesSaver(String username, String password, String j, String notesfolder) throws Exception {
+		
 		// Get system properties
 		Properties props = System.getProperties();
 
@@ -45,29 +45,37 @@ public class NotesSaver {
 
 		// Get the store
 		Store store = session.getStore("imaps");
-		//store.connect("imap.gmail.com", mymailusername, mymailpassword);
-		store.connect("imap.mail.me.com", args[0], args[1]);	// username without @icloud.com
+		String noteFolderLabel = "";
+		
+		if (j.toLowerCase().equals("apple")) {
+			noteFolderLabel = "Notes";
+			store.connect("imap.mail.me.com", username, password);	// username without @icloud.com
+		} else if (j.toLowerCase().equals("google")) {
+			noteFolderLabel = "Notes";
+			store.connect("imap.gmail.com", username, password);
+		} else {
+			throw new Exception("Notesprovider not implemented!");
+		}
 
-		String backup_directory = NOTEFOLDERLBL + "_" + System.currentTimeMillis() + "/";
+		String backup_directory = noteFolderLabel + "_" + System.currentTimeMillis() + "/";
 
 		// saves main folder
-		save(store, backup_directory, NOTEFOLDERLBL);
+		save(store, backup_directory, noteFolderLabel);
 		
 		// folder..s	
-		Folder mainnotefolder = store.getFolder(NOTEFOLDERLBL);
+		Folder mainnotefolder = store.getFolder(noteFolderLabel);
 		System.out.println("found " + mainnotefolder.list().length + " note folders");
 		Folder[] f = mainnotefolder.list();
 		for(Folder fd:f) {
 		    String backup_directory_i = backup_directory + fd.getName();
-			save(store, backup_directory_i, NOTEFOLDERLBL + "/" + fd.getName());
+			save(store, backup_directory_i, noteFolderLabel + "/" + fd.getName());
 		}
 
 		// Close connection
 		store.close();
-		System.exit(0);
 	}
-
-	private static void save(Store store, String wheretobackup, String f) throws MessagingException, IOException {
+	
+	private void save(Store store, String wheretobackup, String f) throws MessagingException, IOException {
 		
 	    System.out.println("opening folder " + f);
 	    Folder folder = store.getFolder(f);
@@ -86,7 +94,7 @@ public class NotesSaver {
 			System.out.println("saving: " + subj);
 
 			// BACKUP NOTE
-			minifunctions.writeFile(wheretobackup + "/" + minifunctions.makeFilename(subj).trim() + ".html", nota, message[i].getSentDate());
+			generals.writeFile(wheretobackup + "/" + generals.makeFilename(subj).trim() + ".html", nota, message[i].getSentDate());
 
 		}
 		folder.close(false);
