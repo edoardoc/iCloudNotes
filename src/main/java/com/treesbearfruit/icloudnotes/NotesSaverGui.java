@@ -18,9 +18,14 @@
 
 package com.treesbearfruit.icloudnotes;
 
+import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import com.treesbearfruit.icloudnotes.utils.generals;
@@ -28,13 +33,42 @@ import com.treesbearfruit.icloudnotes.utils.generals;
 public class NotesSaverGui extends JFrame {
 
 	public NotesSaverGui() throws HeadlessException {
-		super();
-		setTitle("iCloudNotes Backup");
-		setSize(300, 200);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+        initUI();
 	}
 
+	
+    private void initUI() {
+		Container pane = getContentPane();
+        GroupLayout gl = new GroupLayout(pane);
+        pane.setLayout(gl);
+
+        JButton quitButton = new JButton("Quit");
+
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                System.exit(0);
+            }
+        });
+
+        gl.setAutoCreateContainerGaps(true);
+        
+        gl.setHorizontalGroup(gl.createSequentialGroup()
+                .addComponent(quitButton)
+        );
+
+        gl.setVerticalGroup(gl.createSequentialGroup()
+                .addComponent(quitButton)
+        );
+        
+        pack();
+
+		setTitle("iCloudNotes Backup");
+        setSize(300, 200);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+	
 	public static void main(final String args[]) throws Exception {
         EventQueue.invokeLater(new Runnable() {
             @Override
