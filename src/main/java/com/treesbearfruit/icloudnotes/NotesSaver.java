@@ -38,7 +38,7 @@ public class NotesSaver {
 	// http://support.apple.com/kb/HT4864
 
 	public NotesSaver(String username, String password, String j, String wheretosave) throws Exception {
-		
+
 		// Get system properties
 		Properties props = System.getProperties();
 
@@ -47,7 +47,7 @@ public class NotesSaver {
 		// Get the store
 		Store store = session.getStore("imaps");
 		String noteFolderLabel = "";
-		
+
 		if (j.toLowerCase().equals("apple")) {
 			noteFolderLabel = "Notes";
 			store.connect("imap.mail.me.com", username, password);	// username without @icloud.com
@@ -57,13 +57,13 @@ public class NotesSaver {
 		} else {
 			throw new Exception("Notesprovider not implemented!");
 		}
-		
+
 		String timestamp = new java.text.SimpleDateFormat("dd_MM_yyyy_hh_mm_ss").format(new Date());
 		String backup_directory = wheretosave + (wheretosave.endsWith(File.separator) ? "" : File.separator) + noteFolderLabel + "_" + timestamp + File.separator;
 
 		// saves main folder
 		save(store, backup_directory, noteFolderLabel);
-		
+
 		// folder..s	
 		Folder mainnotefolder = store.getFolder(noteFolderLabel);
 		System.out.println("found " + mainnotefolder.list().length + " note folders");
@@ -76,22 +76,22 @@ public class NotesSaver {
 		// Close connection
 		store.close();
 	}
-	
+
 	private void save(Store store, String wheretobackup, String f) throws MessagingException, IOException {
-		
+
 	    System.out.println("opening folder " + f);
 	    Folder folder = store.getFolder(f);
 	    folder.open(Folder.READ_ONLY);
-	    
+
 	    FileUtils.forceMkdir(new File(wheretobackup));
-		
+
 		// Get directory
 		Message message[] = folder.getMessages();
 		for (int i = 0, n = message.length; i < n; i++) {
 			// String from = (message[i].getFrom()[0]).toString();
 			String subj = (message[i].getSubject()).toString();
 			String nota = (message[i].getContent()).toString();
-			
+
 			// System.out.println("from: " + from);
 			System.out.println("saving: " + subj);
 
