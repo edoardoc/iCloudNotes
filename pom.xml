@@ -10,8 +10,8 @@
 
 	<scm>
 		<url>https://github.com/edoardoc/iCloudNotes/src</url>
-		<connection>scm:git:ssh://git@github.com/edoardoc/iCloudNotes.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/edoardoc/iCloudNotes.git</developerConnection>
+		<connection>scm:git:ssh://edoardoc@github.com/edoardoc/iCloudNotes.git</connection>
+		<developerConnection>scm:git:ssh://edoardoc@github.com/edoardoc/iCloudNotes.git</developerConnection>
 		<tag>v0.9b</tag>
 	</scm>
 	
