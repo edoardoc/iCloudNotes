@@ -8,11 +8,12 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+
 	<scm>
 		<url>https://github.com/edoardoc/iCloudNotes/src</url>
 		<connection>scm:git:ssh://edoardoc@github.com/edoardoc/iCloudNotes.git</connection>
 		<developerConnection>scm:git:ssh://edoardoc@github.com/edoardoc/iCloudNotes.git</developerConnection>
-		<tag>v0.91b</tag>
+		<tag>HEAD</tag>
 	</scm>
 	
 	<dependencies>
