@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.treesbearfruit.icloudnotes</groupId>
 	<artifactId>iCloudNotes</artifactId>
-	<version>0.9b-SNAPSHOT</version>
+	<version>0.9b</version>
 	<description>Simple imap notes saver</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,7 +13,7 @@
 		<url>https://github.com/edoardoc/iCloudNotes/src</url>
 		<connection>scm:git:ssh://edoardoc@github.com/edoardoc/iCloudNotes.git</connection>
 		<developerConnection>scm:git:ssh://edoardoc@github.com/edoardoc/iCloudNotes.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v0.9b</tag>
 	</scm>
 	
 	<dependencies>
