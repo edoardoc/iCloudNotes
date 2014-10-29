@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.treesbearfruit.icloudnotes</groupId>
 	<artifactId>iCloudNotes</artifactId>
-	<version>0.11b</version>
+	<version>0.12b-SNAPSHOT</version>
 	<description>Simple imap notes saver</description>
 	
 	
@@ -18,7 +18,7 @@
 		<url>https://github.com/edoardoc/iCloudNotes</url>
 		<connection>scm:git:git://github.com//edoardoc/iCloudNotes.git</connection>
 		<developerConnection>scm:git:git@github.com:edoardoc/iCloudNotes.git</developerConnection>
-    <tag>v0.11b</tag>
+    <tag>HEAD</tag>
   </scm>
 
 	<developers>
