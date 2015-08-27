@@ -28,6 +28,8 @@ import java.util.Date;
 public abstract class generals {
 	
 	public static final String APPNAME = "iCloudNotes";
+	public static final String UTF8PREF  = "<head xmlns=\"http://www.w3.org/1999/xhtml\"><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"></head>";
+
 
 	public static String makeFilename(String str) {
         StringBuffer buf = new StringBuffer();
@@ -79,6 +81,7 @@ public abstract class generals {
 
 	static public boolean writeFile(String nome, String Contenuto, Date date) {
 		System.err.println("saving " + nome);
+		Contenuto = UTF8PREF + Contenuto;
 		boolean ret;
 		try {
 			FileOutputStream outStream = new FileOutputStream(nome);
