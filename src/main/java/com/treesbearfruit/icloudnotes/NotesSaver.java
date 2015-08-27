@@ -19,15 +19,20 @@
 package com.treesbearfruit.icloudnotes;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimePart;
 
 import org.apache.commons.io.FileUtils;
 
@@ -62,7 +67,7 @@ public class NotesSaver {
 		String backup_directory = wheretosave + (wheretosave.endsWith(File.separator) ? "" : File.separator) + noteFolderLabel + "_" + timestamp + File.separator;
 
 		// saves main folder
-		save(store, backup_directory, noteFolderLabel);
+		//save(store, backup_directory, noteFolderLabel);
 
 		// folder..s	
 		Folder mainnotefolder = store.getFolder(noteFolderLabel);
@@ -92,13 +97,58 @@ public class NotesSaver {
 			String subj = (message[i].getSubject()).toString();
 			String nota = (message[i].getContent()).toString();
 
-			// System.out.println("from: " + from);
-			System.out.println("saving: " + subj);
+			if (message[i].getContent() instanceof MimeMultipart) {
 
-			// BACKUP NOTE
-			generals.writeFile(wheretobackup + "/" + generals.makeFilename(subj).trim() + ".html", nota, message[i].getSentDate());
+				MimeMultipart multipart = (MimeMultipart) message[i].getContent();
 
+				for (int j = 0; j < multipart.getCount(); j++) {
+
+					BodyPart bodyPart = multipart.getBodyPart(j);
+						
+						if (bodyPart.isMimeType("text/html")) {
+							nota = bodyPart.getContent().toString();
+							generals.writeFile(wheretobackup + "/" + generals.makeFilename(subj).trim() + ".html", nota, message[i].getSentDate());
+							
+						} else if (bodyPart.isMimeType("IMAGE/PNG")) {
+							String imagecid = ((MimePart) bodyPart).getContentID();
+							
+							InputStream is = bodyPart.getInputStream();
+						    FileUtils.forceMkdir(new File(wheretobackup + "/images/"));
+							File fimg = new File(wheretobackup + "/images/" + bodyPart.getFileName());
+							System.out.println("saving " + wheretobackup + "/images/" + bodyPart.getFileName());
+					        FileOutputStream fos = new FileOutputStream(fimg);
+					        byte[] buf = new byte[4096];
+					        int bytesRead;
+					        while((bytesRead = is.read(buf))!=-1) {
+					            fos.write(buf, 0, bytesRead);
+					        }
+					        fos.close();
+					        
+					        
+					        // devi fare il replace 0DA094B7-933A-4B19-947F-2FC42FA9DABD
+							System.out.println("html replace file name : " + imagecid);							
+							System.out.println("into file name : " + bodyPart .getFileName());							
+
+						}
+				}
+			} else {
+				generals.writeFile(wheretobackup + "/" + generals.makeFilename(subj).trim() + ".html", nota, message[i].getSentDate());
+			}
 		}
 		folder.close(false);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
