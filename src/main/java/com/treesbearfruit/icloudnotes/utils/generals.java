@@ -78,6 +78,7 @@ public abstract class generals {
 	}
 
 	static public boolean writeFile(String nome, String Contenuto, Date date) {
+		System.err.println("saving " + nome);
 		boolean ret;
 		try {
 			FileOutputStream outStream = new FileOutputStream(nome);
