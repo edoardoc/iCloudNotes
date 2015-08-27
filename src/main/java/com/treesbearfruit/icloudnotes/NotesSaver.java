@@ -67,7 +67,7 @@ public class NotesSaver {
 		String backup_directory = wheretosave + (wheretosave.endsWith(File.separator) ? "" : File.separator) + noteFolderLabel + "_" + timestamp + File.separator;
 
 		// saves main folder
-		//save(store, backup_directory, noteFolderLabel);
+		save(store, backup_directory, noteFolderLabel);
 
 		// folder..s	
 		Folder mainnotefolder = store.getFolder(noteFolderLabel);
