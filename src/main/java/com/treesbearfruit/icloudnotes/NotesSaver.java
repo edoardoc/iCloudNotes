@@ -46,10 +46,11 @@ public class NotesSaver {
 
 		// Get system properties
 		Properties props = System.getProperties();
-
-		Session session = Session.getDefaultInstance(props);
+		
+		System.setProperty("mail.imaps.ssl.protocols", "TLSv1.2");
 
 		// Get the store
+		Session session = Session.getDefaultInstance(props);
 		Store store = session.getStore("imaps");
 		String noteFolderLabel = "";
 
@@ -138,17 +139,3 @@ public class NotesSaver {
 		folder.close(false);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

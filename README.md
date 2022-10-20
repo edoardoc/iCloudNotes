@@ -1,6 +1,6 @@
 # iCloudNotes
 
-iCloudNotes is a reader for the Notes application in your Apple or Google account, it's only feature right now is to read the notes and save them as they are in a folder.
+iCloudNotes is a reader for the Notes application in your Apple or Google account, it's only feature right now is to read the notes and save them as they are in a folder as html files, images are not processed.
 
 ## Build
 build with maven with 
@@ -8,14 +8,16 @@ build with maven with
 $ mvn package
 ```
 ## Run
-from command line (gui is coming)
+from command line
 ```sh
 $ java -jar iCloudNotes-0.19a.jar email_user_name password apple ./mynotes
 ```
 ### Parameters
+Google: Application-specific password required: https://support.google.com/accounts/answer/185833
+
 - email_user_name - NOT the complete e-mail address
 - password 
-- apple to connect with icloud notes, google instead
+- 'apple' for iCloud notes or 'google' for google notes
 
 ### run example
 ```sh
@@ -31,4 +33,3 @@ saving ./mynotes/Notes_27_08_2015_04_07_21/projects/Surface_weather_analysis.htm
 saving ./mynotes/Notes_27_08_2015_04_11_51/projects/images/Screen Shot 2015-06-02 at 20.55.04.png
 ...
 ```
-
